@@ -92,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   _clearValidation();
+                                  _homePage();
                                 }
                               },
                               color: Color(0xFF1DE9B6),
@@ -114,5 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _registerPage() {
     Navigator.pushNamed(context, '/register');
+  }
+
+  void _homePage() {
+    Navigator.pushNamed(context, '/');
   }
 }
