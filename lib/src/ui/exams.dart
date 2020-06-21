@@ -1,6 +1,8 @@
 import 'package:appsaudeemmaos/src/widgets/bottom_navigation_widget.dart';
 import 'package:appsaudeemmaos/src/widgets/drawer_menu_widget.dart';
+import 'package:appsaudeemmaos/src/widgets/exams_filter_widget.dart';
 import 'package:appsaudeemmaos/src/widgets/exams_list_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExamsScreen extends StatefulWidget {
@@ -9,11 +11,6 @@ class ExamsScreen extends StatefulWidget {
 }
 
 class _ExamsScreenState extends State<ExamsScreen> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final _examCodeController = TextEditingController();
-  final _examNameController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,61 +23,16 @@ class _ExamsScreenState extends State<ExamsScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(10),
+          margin: EdgeInsets.only(top: 30, right: 10, bottom: 10, left: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                "Filtrar",
+                "Buscar Exames",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 5),
-                              child: TextFormField(
-                                controller: _examCodeController,
-                                decoration: InputDecoration(
-                                  labelText: "Código",
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 5),
-                              child: TextFormField(
-                                controller: _examNameController,
-                                decoration: InputDecoration(
-                                  labelText: "Nome",
-                                ),
-                                keyboardType: TextInputType.number,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    RaisedButton(
-                      child: Text(
-                        "Filtrar",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {},
-                      color: Theme.of(context).primaryColor,
-                    )
-                  ],
-                ),
-              ),
+              ExamsFilterWidget(),
               SizedBox(
                 height: 20,
               ),
