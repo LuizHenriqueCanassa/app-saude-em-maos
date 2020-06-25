@@ -118,98 +118,9 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
             child: TextFormField(
               controller: _examNameController,
               decoration: InputDecoration(
-                labelText: "Nome",
+                labelText: "Tipo",
               ),
               keyboardType: TextInputType.number,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: BuildTextFieldWidget(
-                      "Data Inicial",
-                      _examDateInitialController,
-                      TextInputType.datetime,
-                      readyOnly: true,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text(
-                      "Escolher",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Color(0xFF283593),
-                    onPressed: () {
-                      _alterDateInput(_examDateInitialController);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text(
-                      "Limpar",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Color(0xFFe53935),
-                    onPressed: () {
-                      _cleanDateInput(_examDateInitialController);
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: BuildTextFieldWidget(
-                      "Data Final",
-                      _examDateFinalController,
-                      TextInputType.datetime,
-                      readyOnly: true,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text(
-                      "Escolher",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Color(0xFF283593),
-                    onPressed: () {
-                      _alterDateInput(_examDateFinalController);
-                    },
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: RaisedButton(
-                    child: Text(
-                      "Limpar",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: Color(0xFFe53935),
-                    onPressed: () {
-                      _cleanDateInput(_examDateFinalController);
-                    },
-                  ),
-                )
-              ],
             ),
           ),
           Row(

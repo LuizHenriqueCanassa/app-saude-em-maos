@@ -14,7 +14,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xFF1DE9B6),
         accentColor: Colors.white,
-        primaryIconTheme: IconThemeData(color: Colors.white)
+        primaryIconTheme: IconThemeData(color: Colors.white),
       ),
       initialRoute: '/login',
       routes: {

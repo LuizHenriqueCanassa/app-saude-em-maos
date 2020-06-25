@@ -1,3 +1,5 @@
+import 'package:appsaudeemmaos/src/resources/login_repository.dart';
+import 'package:appsaudeemmaos/src/ui/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _cpfController = TextEditingController();
+  LoginRepository repository = LoginRepository();
+
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -16,6 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _formKey = GlobalKey<FormState>();
     });
+  }
+
+  void _submitForm() {
+
   }
 
   @override
@@ -51,12 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: <Widget>[
                             TextFormField(
                               decoration: InputDecoration(
-                                  labelText: "CPF",
+                                  labelText: "Usuário",
                                   icon: Icon(Icons.person),
                                   hoverColor: Colors.green,
                                   fillColor: Colors.green),
-                              controller: _cpfController,
-                              keyboardType: TextInputType.number,
+                              controller: _usernameController,
+                              keyboardType: TextInputType.text,
                               validator: (text) {
                                 if (text.isEmpty) {
                                   return "O campo é obrigatório!";
@@ -118,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _homePage() {
-    Navigator.pushNamed(context, '/');
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 }

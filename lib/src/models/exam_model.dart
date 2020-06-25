@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class ExamModel{
   int examCode;
-  String examName;
+  String examType;
   String examResults;
   DateTime examDate;
+  String examStatus;
   bool isExpanded = false;
 
-  ExamModel(this.examCode, this.examName, this.examResults, this.examDate);
+  ExamModel(this.examCode, this.examType, this.examResults, this.examDate, this.examStatus);
 }

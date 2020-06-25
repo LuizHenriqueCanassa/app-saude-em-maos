@@ -32,7 +32,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       drawer: DrawerMenu(),
-      bottomNavigationBar: BottomNavigation(context),
     );
   }
 }

@@ -50,7 +50,6 @@ class _ExamsScreenState extends State<ExamsScreen> {
         ),
       ),
       drawer: DrawerMenu(),
-      bottomNavigationBar: BottomNavigation(context),
     );
   }
 }
