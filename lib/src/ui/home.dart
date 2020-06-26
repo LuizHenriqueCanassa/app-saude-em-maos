@@ -4,7 +4,12 @@ import 'package:appsaudeemmaos/src/widgets/drawer_menu_widget.dart';
 import 'package:appsaudeemmaos/src/widgets/exams_list_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +29,10 @@ class HomeScreen extends StatelessWidget {
               CardProfile(),
               Container(
                 margin: EdgeInsets.only(top: 20, bottom: 20),
-                child: Text("Últimos Exames", style: TextStyle(fontSize: 20),),
+                child: Text(
+                  "Últimos Exames",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
               ExamsList(5)
             ],
