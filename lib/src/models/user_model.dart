@@ -37,6 +37,11 @@ class User {
         Address.fromJson(json["address"]));
   }
 
+  factory User.fromUser(User user) {
+    return User(user.id, user.cpf, user.name, user.phone, user.birthDate,
+        user.insuranceNumber, user.address);
+  }
+
   int get id => _id;
   String get cpf => _cpf;
   String get name => _name;

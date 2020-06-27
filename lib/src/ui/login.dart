@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login(UserValidate userValidate) async {
     User user = await LoginRepository.createUserSession(userValidate);
 
-    print(user);
+    _homePage(user);
   }
 
   @override
@@ -158,8 +158,12 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pushNamed(context, '/register');
   }
 
-  void _homePage() {
+  void _homePage(User user) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeScreen(
+                  user: user,
+                )));
   }
 }

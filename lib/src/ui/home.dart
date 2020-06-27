@@ -1,3 +1,4 @@
+import 'package:appsaudeemmaos/src/models/user_model.dart';
 import 'package:appsaudeemmaos/src/widgets/bottom_navigation_widget.dart';
 import 'package:appsaudeemmaos/src/widgets/card_profile_widget.dart';
 import 'package:appsaudeemmaos/src/widgets/drawer_menu_widget.dart';
@@ -5,11 +6,21 @@ import 'package:appsaudeemmaos/src/widgets/exams_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+  final User user;
+
+  const HomeScreen({this.user});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  User user;
+  @override
+  void initState() {
+    user = User.fromUser(widget.user);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Color(0xFFFAFAFA),
           child: Column(
             children: <Widget>[
-              CardProfile(),
+              CardProfile(
+                user: widget.user,
+              ),
               Container(
                 margin: EdgeInsets.only(top: 20, bottom: 20),
                 child: Text(
@@ -39,7 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      drawer: DrawerMenu(),
+      drawer: DrawerMenu(
+        user: user,
+      ),
     );
   }
 }
