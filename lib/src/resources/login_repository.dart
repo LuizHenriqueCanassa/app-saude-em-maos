@@ -21,7 +21,7 @@ class LoginRepository {
     }
   }
 
-  static Future<User> createUserSession(UserValidate userValidate) async {
+  static Future createUserSession(UserValidate userValidate) async {
     http.Response response = await http.get(
         "https://saude-em-maos.herokuapp.com/patient/${userValidate.userId}",
         headers: <String, String>{
@@ -29,7 +29,8 @@ class LoginRepository {
         });
 
     if (response.statusCode == 200) {
-      return User.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+      User.createUserSection(json.decode(utf8.decode(response.bodyBytes)));
+      return;
     } else {
       return null;
     }

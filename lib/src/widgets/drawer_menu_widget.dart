@@ -2,9 +2,6 @@ import 'package:appsaudeemmaos/src/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatefulWidget {
-  final User user;
-
-  const DrawerMenu({this.user});
   @override
   _DrawerMenuState createState() => _DrawerMenuState();
 }
@@ -13,14 +10,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
   void _navigateToPage(String route) {
     Navigator.pushNamed(context, route);
   }
-
-  User user;
-  @override
-  void initState() {
-    user = User.fromUser(widget.user);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -41,7 +30,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      user.name,
+                      User.name != null ? User.name : "Nome",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     )
                   ],

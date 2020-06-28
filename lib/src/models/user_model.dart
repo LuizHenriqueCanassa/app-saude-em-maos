@@ -1,5 +1,8 @@
 import 'package:appsaudeemmaos/src/models/address_model.dart';
 
+import 'address_model.dart';
+import 'address_model.dart';
+
 class UserValidate {
   String _userTypeEnum;
   int _userId;
@@ -15,38 +18,29 @@ class UserValidate {
 }
 
 class User {
-  int _id;
-  String _cpf;
-  String _name;
-  String _phone;
-  String _birthDate;
-  String _insuranceNumber;
-  Address _address;
+  static int _id = 0;
+  static String _cpf = "";
+  static String _name = "";
+  static String _phone = "";
+  static String _birthDate = "";
+  static String _insuranceNumber = "";
+  static Address _address = new Address();
 
-  User(this._id, this._cpf, this._name, this._phone, this._birthDate,
-      this._insuranceNumber, this._address);
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        json["id"],
-        json["cpf"],
-        json["name"],
-        json["phone"],
-        json["birthDate"],
-        json["insuranceNumber"],
-        Address.fromJson(json["address"]));
+  static void createUserSection(Map<String, dynamic> json){
+      User._id = json["id"];
+      User._name = json["name"];
+      User._cpf = json["cpf"];
+      User._phone = json["phone"];
+      User._birthDate = json["birthDate"];
+      User._insuranceNumber = json["insuranceNumber"];
+      User._address = Address.fromJson(json["address"]);
   }
 
-  factory User.fromUser(User user) {
-    return User(user.id, user.cpf, user.name, user.phone, user.birthDate,
-        user.insuranceNumber, user.address);
-  }
-
-  int get id => _id;
-  String get cpf => _cpf;
-  String get name => _name;
-  String get phone => _phone;
-  String get birthDate => _birthDate;
-  String get insuranceNumber => _insuranceNumber;
-  Address get address => _address;
+  static int get id => _id;
+  static String get cpf => _cpf;
+  static String get name => _name;
+  static String get phone => _phone;
+  static String get birthDate => _birthDate;
+  static String get insuranceNumber => _insuranceNumber;
+  static Address get address => _address;
 }

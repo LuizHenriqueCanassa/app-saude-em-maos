@@ -44,7 +44,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
               SizedBox(
                 height: 20,
               ),
-              ExamsList(15)
+              ExamsList()
             ],
           ),
         ),

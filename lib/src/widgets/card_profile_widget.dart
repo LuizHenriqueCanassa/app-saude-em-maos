@@ -3,21 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardProfile extends StatefulWidget {
-  final User user;
-
-  const CardProfile({this.user});
   @override
   _CardProfileState createState() => _CardProfileState();
 }
 
 class _CardProfileState extends State<CardProfile> {
-  User user;
-  @override
-  void initState() {
-    user = User.fromUser(widget.user);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,19 +25,21 @@ class _CardProfileState extends State<CardProfile> {
                         ListTile(
                           contentPadding: EdgeInsets.only(left: 30, top: 30),
                           title: Text("Bem Vindo!"),
-                          subtitle: Text(user.name),
+                          subtitle: Text(User.name != null ? User.name : "Nome"),
                         ),
                         ButtonBar(
                           buttonPadding: EdgeInsets.all(0),
                           children: <Widget>[
                             FlatButton(
-                              child: Text("EDITAR PERFIL"),
+                              child: Text("PERFIL"),
                               onPressed: () =>
                                   Navigator.pushNamed(context, '/profile'),
                             ),
                             FlatButton(
                               child: Text("SAIR"),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
                             )
                           ],
                         )

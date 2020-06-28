@@ -29,8 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     UserValidate userValidate = await LoginRepository.validateLogin(
         _usernameController.text, _passwordController.text);
 
-    print(userValidate);
-
     if (userValidate == null) {
       return false;
     } else {
@@ -40,9 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _login(UserValidate userValidate) async {
-    User user = await LoginRepository.createUserSession(userValidate);
+    await LoginRepository.createUserSession(userValidate);
 
-    _homePage(user);
+    _homePage();
   }
 
   @override
@@ -120,9 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
                                     _clearValidation();
-                                    if (await _submitForm()) {
-                                      print("Foi");
-                                    } else {
+                                    if (!await _submitForm()) {
                                       final snackBar = SnackBar(
                                         content: Text(
                                             'Usuário ou senha Incorretos!'),
@@ -158,12 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pushNamed(context, '/register');
   }
 
-  void _homePage(User user) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomeScreen(
-                  user: user,
-                )));
+  void _homePage() {
+    Navigator.pushNamed(context, '/');
   }
 }
