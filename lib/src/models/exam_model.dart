@@ -42,7 +42,7 @@ class Exam{
       case "EXAME_CONCLUIDO":
         return "Concluído";
       case "EXAME_ANALISADO":
-        return "Analisádo";
+        return "Analisado";
     }
   }
 }

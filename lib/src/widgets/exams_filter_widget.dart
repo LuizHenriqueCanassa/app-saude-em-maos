@@ -18,9 +18,9 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
 
   Map<String, String> _examStatus = {
     "": "Status do Exame",
-    "status1": "Status 1",
-    "status2": "Status 2",
-    "status3": "Status 3"
+    "EXAME_EM_ANDAMENTO": "Em Andamento",
+    "EXAME_CONCLUIDO": "Concluído",
+    "EXAME_ANALISADO": "Analisado"
   };
   List<DropdownMenuItem<String>> _dropDownMenuExamStatus;
   String _currentExamStatus;
@@ -29,7 +29,6 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
   void initState() {
     _dropDownMenuExamStatus = _getDropDownMenuExamStatus();
     _currentExamStatus = _dropDownMenuExamStatus[0].value;
-    print(_dropDownMenuExamStatus);
     super.initState();
   }
 
@@ -38,7 +37,6 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
     _examStatus.forEach((key, value) {
       items.add(new DropdownMenuItem(value: key, child: new Text(value)));
     });
-    print(items);
     return items;
   }
 

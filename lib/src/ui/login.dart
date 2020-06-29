@@ -46,13 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _registerPage();
-        },
-        child: Icon(Icons.person_add),
-        backgroundColor: Color(0xFF1DE9B6),
-      ),
       body: Builder(
         builder: (context) => Center(
           child: SingleChildScrollView(
@@ -81,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     icon: Icon(Icons.person),
                                     hoverColor: Colors.green,
                                     fillColor: Colors.green),
-                                controller: _usernameController,
+                                controller: _usernameController..text = "vitorfarias",
                                 keyboardType: TextInputType.text,
                                 validator: (text) {
                                   if (text.isEmpty) {
@@ -99,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     icon: Icon(Icons.lock),
                                     hoverColor: Colors.green,
                                     fillColor: Colors.green),
-                                controller: _passwordController,
+                                controller: _passwordController..text = "123456789",
                                 obscureText: true,
                                 validator: (text) {
                                   if (text.isEmpty) {
@@ -149,11 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  void _registerPage() {
-    Navigator.pushNamed(context, '/register');
-  }
-
+  
   void _homePage() {
     Navigator.pushNamed(context, '/');
   }

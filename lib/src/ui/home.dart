@@ -22,24 +22,37 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.all(10),
-          color: Color(0xFFFAFAFA),
-          child: Column(
-            children: <Widget>[
-              CardProfile(),
-              Container(
-                margin: EdgeInsets.only(top: 20, bottom: 20),
-                child: Text(
-                  "Últimos Exames",
-                  style: TextStyle(fontSize: 20),
-                ),
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10),
+              color: Color(0xFFFAFAFA),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CardProfile(),
+                  Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
+                    child: Text(
+                      "Últimos Exames",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                            child: ExamsList(
+                          quantity: 5,
+                        )),
+                      )
+                    ],
+                  )
+                ],
               ),
-              Row(children: [
-                Expanded(child: ExamsList(quantity: 5,),)
-              ],)
-            ],
-          ),
+            )
+          ],
         ),
       ),
       drawer: DrawerMenu(),

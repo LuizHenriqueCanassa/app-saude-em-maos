@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:appsaudeemmaos/src/models/exam_model.dart';
 import 'package:appsaudeemmaos/src/resources/exam_repository.dart';
+import 'package:appsaudeemmaos/src/ui/exam_details.dart';
+import 'package:appsaudeemmaos/src/utils/data_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:async/async.dart';
@@ -29,20 +31,14 @@ class _ExamsListState extends State<ExamsList> {
     super.initState();
   }
 
-  String _formatData(DateTime dateTime) {
-    DateFormat dateFormat = DateFormat("dd/MM/yyyy");
-
-    return dateFormat.format(dateTime);
-  }
-
-  int getItemCount(quantity, examsLength){
-    if(quantity != null){
-      if(quantity > examsLength){
+  int getItemCount(quantity, examsLength) {
+    if (quantity != null) {
+      if (quantity > examsLength) {
         return examsLength;
-      }else{
+      } else {
         return quantity;
       }
-    }else{
+    } else {
       return examsLength;
     }
   }
@@ -60,137 +56,27 @@ class _ExamsListState extends State<ExamsList> {
               height: 200.0,
               alignment: Alignment.center,
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).primaryColor),
                 strokeWidth: 5.0,
               ),
             );
           default:
             if (snapshot.hasError) {
               return Container();
+            } else if (snapshot.data.length == 0) {
+              return Center(
+                child: Text("Nenhum exame encontrado!"),
+              );
             } else {
               return ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: getItemCount(widget.quantity, snapshot.data.length),
+                  itemCount:
+                      getItemCount(widget.quantity, snapshot.data.length),
                   itemBuilder: (context, index) {
                     Exam exam = snapshot.data[index];
-                    return ExpansionPanelList(
-                      expansionCallback: (int index, bool isExpanded) {
-                        setState(() {
-                          exam.isExpanded = !isExpanded;
-                        });
-                      },
-                      children: [
-                        ExpansionPanel(
-                            isExpanded: exam.isExpanded,
-                            headerBuilder:
-                                (BuildContext context, bool isExpanded) {
-                              return ListTile(
-                                title: Row(
-                                  children: [
-                                    Text(
-                                      "#" + exam.examId.toString(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      child: Text(exam.examType),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                            body: Container(
-                              padding: EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: <Widget>[
-                                          Text(
-                                            "Código: ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            exam.examId.toString(),
-                                            style: TextStyle(fontSize: 15),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Text(
-                                            "Exame: ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            exam.examType,
-                                            style: TextStyle(fontSize: 15),
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Text(
-                                            "Status: ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            Exam.statusExam(exam.examStatus),
-                                            style: TextStyle(fontSize: 15),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Text(
-                                            "Data: ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            exam.exameCompletedDate != null
-                                                ? exam.exameCompletedDate
-                                                : "N/A",
-                                            style: TextStyle(fontSize: 15),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  RaisedButton(
-                                    child: Text("Detalhes"),
-                                    onPressed: () {},
-                                    color: Theme.of(context).primaryColor,
-                                  )
-                                ],
-                              ),
-                            ))
-                      ],
-                    );
+                    return createExpansionListPanels(exam);
                   });
             }
         }
@@ -199,115 +85,137 @@ class _ExamsListState extends State<ExamsList> {
     );
   }
 
-  // Widget createExpansionPanels(List<Exam> exams) {
-  //   // print(exams);
-  //   return ExpansionPanelList(
-  //     expansionCallback: (int index, bool isExpanded) {
-  //       setState(() {
-  //         exams[index].isExpanded = !isExpanded;
-  //       });
-  //     },
-  //     children: exams.map<ExpansionPanel>((e) {
-  //       return ExpansionPanel(
-  //           headerBuilder: (BuildContext context, bool isExpanded) {
-  //             return ListTile(
-  //               title: Row(
-  //                 children: <Widget>[
-  //                   Text(
-  //                     "#" + e.examId.toString(),
-  //                     style: TextStyle(fontWeight: FontWeight.bold),
-  //                   ),
-  //                   Container(
-  //                     margin: EdgeInsets.only(left: 10),
-  //                     child: Text(e.examType),
-  //                   )
-  //                 ],
-  //               ),
-  //             );
-  //           },
-  //           body: Container(
-  //             padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-  //             child: Column(
-  //               children: <Widget>[
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: <Widget>[
-  //                     Row(
-  //                       children: <Widget>[
-  //                         Text(
-  //                           "Código: ",
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 15),
-  //                         ),
-  //                         Text(
-  //                           e.examId.toString(),
-  //                           style: TextStyle(fontSize: 15),
-  //                         )
-  //                       ],
-  //                     ),
-  //                     Row(
-  //                       children: <Widget>[
-  //                         Text(
-  //                           "Exame: ",
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 15),
-  //                         ),
-  //                         Text(
-  //                           e.examType,
-  //                           style: TextStyle(fontSize: 15),
-  //                         )
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: 10,
-  //                 ),
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: <Widget>[
-  //                     Row(
-  //                       children: <Widget>[
-  //                         Text(
-  //                           "Status: ",
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 15),
-  //                         ),
-  //                         Text(
-  //                           e.examStatus,
-  //                           style: TextStyle(fontSize: 15),
-  //                         )
-  //                       ],
-  //                     ),
-  //                     Row(
-  //                       children: <Widget>[
-  //                         Text(
-  //                           "Data: ",
-  //                           style: TextStyle(
-  //                               fontWeight: FontWeight.bold, fontSize: 15),
-  //                         ),
-  //                         Text(
-  //                           e.examRequestedDateTime,
-  //                           style: TextStyle(fontSize: 15),
-  //                         )
-  //                       ],
-  //                     )
-  //                   ],
-  //                 ),
-  //                 SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 RaisedButton(
-  //                   child: Text("Detalhes"),
-  //                   onPressed: () {},
-  //                   color: Theme.of(context).primaryColor,
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //           isExpanded: e.isExpanded);
-  //     }).toList(),
-  //   );
-  // }
-
+  Widget createExpansionListPanels(Exam exam) {
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(() {
+          exam.isExpanded = !isExpanded;
+        });
+      },
+      children: [
+        ExpansionPanel(
+            isExpanded: exam.isExpanded,
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return ListTile(
+                title: Row(
+                  children: [
+                    Text(
+                      "#" + exam.examId.toString(),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text(
+                          exam.examType,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          softWrap: false,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+            body: Container(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Código: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            exam.examId.toString(),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Data: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            exam.exameCompletedDate != null
+                                ? DataUtil.formatData(exam.exameCompletedDate)
+                                : "N/A",
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Exame: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: Text(
+                                exam.examType,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                softWrap: false,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Status: ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text(
+                            Exam.statusExam(exam.examStatus),
+                            style: TextStyle(fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  RaisedButton(
+                    child: Text("Detalhes"),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>ExamDetailsScreen(exam)));
+                    },
+                    color: Theme.of(context).primaryColor,
+                  )
+                ],
+              ),
+            ))
+      ],
+    );
+  }
 }

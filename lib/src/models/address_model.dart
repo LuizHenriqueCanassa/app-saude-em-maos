@@ -1,13 +1,13 @@
 class Address {
-  int _id;
-  String _state;
-  String _city;
-  String _street;
-  String _number;
-  String _complement;
+  int id;
+  String state;
+  String city;
+  String street;
+  String number;
+  String complement;
 
-  Address({id, state, city, street, number,
-      complement});
+  Address({this.id, this.state, this.city, this.street, this.number,
+      this.complement});
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
@@ -19,11 +19,4 @@ class Address {
         complement: json["complement"]
       );
   }
-
-  int get id => _id;
-  String get state => _state;
-  String get city => _city;
-  String get street => _street;
-  String get number => _number;
-  String get complement => _complement;
 }

@@ -23,7 +23,7 @@ class _ExamsScreenState extends State<ExamsScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 30, right: 10, bottom: 10, left: 10),
+          margin: EdgeInsets.only(top: 30, right: 20, bottom: 20, left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
