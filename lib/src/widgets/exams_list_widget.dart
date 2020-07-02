@@ -69,15 +69,16 @@ class _ExamsListState extends State<ExamsList> {
                 child: Text("Nenhum exame encontrado!"),
               );
             } else {
-              return ListView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount:
-                      getItemCount(widget.quantity, snapshot.data.length),
-                  itemBuilder: (context, index) {
-                    Exam exam = snapshot.data[index];
-                    return createExpansionListPanels(exam);
-                  });
+              // return ListView.builder(
+              //     shrinkWrap: true,
+              //     itemCount:
+              //         getItemCount(widget.quantity, snapshot.data.length),
+              //     itemBuilder: (context, index) {
+              //       Exam exam = snapshot.data[index];
+              //       return createExpansionListPanels(exam);
+              //     });
+              List<Exam> exams = snapshot.data;
+              return createExpansionListPanels(exams);
             }
         }
       },
@@ -85,15 +86,15 @@ class _ExamsListState extends State<ExamsList> {
     );
   }
 
-  Widget createExpansionListPanels(Exam exam) {
+  Widget createExpansionListPanels(List<Exam> exam) {
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
         setState(() {
-          exam.isExpanded = !isExpanded;
+          exam[index].isExpanded = !isExpanded;
         });
       },
-      children: [
-        ExpansionPanel(
+      children: exam.map<ExpansionPanel>((Exam exam) {
+        return ExpansionPanel(
             isExpanded: exam.isExpanded,
             headerBuilder: (BuildContext context, bool isExpanded) {
               return ListTile(
@@ -208,14 +209,17 @@ class _ExamsListState extends State<ExamsList> {
                   RaisedButton(
                     child: Text("Detalhes"),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>ExamDetailsScreen(exam)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ExamDetailsScreen(exam)));
                     },
                     color: Theme.of(context).primaryColor,
                   )
                 ],
               ),
-            ))
-      ],
+            ));
+      }).toList(),
     );
   }
 }

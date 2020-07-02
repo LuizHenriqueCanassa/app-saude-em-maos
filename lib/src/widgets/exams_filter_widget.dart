@@ -67,13 +67,13 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
     });
   }
 
-  void _cleanFieldsFilter(){
+  void _cleanFieldsFilter() {
     setState(() {
       _examCodeController.text = "";
       _examNameController.text = "";
       _examDateInitialController.text = "";
       _examDateFinalController.text = "";
-      _currentExamStatus =  _dropDownMenuExamStatus[0].value;
+      _currentExamStatus = _dropDownMenuExamStatus[0].value;
     });
   }
 
@@ -89,36 +89,22 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
               children: <Widget>[
                 Flexible(
                   child: Container(
-                    margin: EdgeInsets.only(right: 5),
-                    child: BuildTextFieldWidget(
-                        "Código", _examCodeController, TextInputType.number),
-                  ),
-                ),
-                Flexible(
-                  child: Container(
                     height: 40,
                     margin: EdgeInsets.only(left: 5, top: 19),
                     child: DropdownButton(
-                        value: _currentExamStatus,
-                        items: _dropDownMenuExamStatus,
-                        onChanged: _changedExameStatus,
+                      value: _currentExamStatus,
+                      items: _dropDownMenuExamStatus,
+                      onChanged: _changedExameStatus,
                       isExpanded: true,
                       isDense: true,
-                      underline: Container(color: Colors.black54, height: 1,),
+                      underline: Container(
+                        color: Colors.black54,
+                        height: 1,
+                      ),
                     ),
                   ),
                 )
               ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: TextFormField(
-              controller: _examNameController,
-              decoration: InputDecoration(
-                labelText: "Tipo",
-              ),
-              keyboardType: TextInputType.number,
             ),
           ),
           Row(
@@ -132,7 +118,10 @@ class _ExamsFilterWidgetState extends State<ExamsFilterWidget> {
                 onPressed: () {},
                 color: Theme.of(context).primaryColor,
               ),
-              SizedBox(height: 10, width: 10,),
+              SizedBox(
+                height: 10,
+                width: 10,
+              ),
               RaisedButton(
                 child: Text(
                   "Limpar Filtros",

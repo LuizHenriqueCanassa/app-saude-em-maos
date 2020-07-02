@@ -23,16 +23,22 @@ class _ExamsScreenState extends State<ExamsScreen> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.only(top: 30, right: 20, bottom: 20, left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                "Buscar Exames",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Text(
+                      "Buscar Exames",
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    ),
+                    ExamsFilterWidget(),
+                  ],
+                ),
               ),
-              ExamsFilterWidget(),
               SizedBox(
                 height: 20,
               ),

@@ -27,6 +27,7 @@ dependencies:
   rxdart: ^0.24.1
   http: ^0.12.1
   async: ^2.4.1
+  expandable: ^4.1.4
 
 dev_dependencies:
   flutter_test:
